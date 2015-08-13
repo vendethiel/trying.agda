@@ -14,23 +14,18 @@ _$_ : ∀ {a b} {A : Set a} {B : Set b} →
         (A → B) → A → B
 f $ v = f v
 
-
 -- BOOL
 data Bool : Set where
   true  : Bool
   false : Bool
 
-not : Bool → Bool 
-not true = false
-not false = true
+_∧_ : Bool → Bool → Bool
+true ∧ true = true
+_ ∧ _ = false
 
-_and_ : Fun₂ Bool
-true and true = true
-_ and _       = false
-
-_or_ : Fun₂ Bool 
-true or _  = true
-false or x = x
+_∨_ : Bool → Bool → Bool
+true ∨ _ = true
+_ ∨ _ = false 
 
 infixr 0 if_then_else_
 if_then_else_ : {A : Set} -> Bool -> Fun₂ A
@@ -69,6 +64,13 @@ zero == zero       = true
 (suc n) == (suc m) = n == m
 _ == _             = false
 
+_<_ : ℕ → ℕ → Bool
+zero < zero        = false
+zero < (suc _)     = true
+(suc _) < zero     = true
+(suc n) < (suc n2) = n < n2
+
+
 -- BOOL: RECORDS
 record True : Set where
 record False : Set where
@@ -77,6 +79,11 @@ isTrue : Bool → Set
 isTrue true = True
 isTrue false = False
 
+data ⊥ : Set where
+
+¬ : Set → Set
+¬ A = A → ⊥
+
 -- LIST: VECT
 data Vect (A : Set) : ℕ -> Set where
   ♯[]  : Vect A zero
@@ -84,6 +91,11 @@ data Vect (A : Set) : ℕ -> Set where
 
 n₀ : {A : Set}{n : ℕ} → Vect A (suc n) → A
 n₀ (x ♯∷ xs) = x
+
+pop : {A : Set}{n : ℕ} -> Vect A (suc n) -> Vect A n
+pop (x ♯∷ xs) = xs
+
+
 
 data Fin : ℕ → Set where
   fzero : {n : ℕ} → Fin (suc n)
