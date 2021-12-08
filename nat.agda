@@ -95,7 +95,7 @@ n₀ (x ♯∷ xs) = x
 pop : {A : Set}{n : ℕ} -> Vect A (suc n) -> Vect A n
 pop (x ♯∷ xs) = xs
 
-_♯++_ : {A : Set}{n : ℕ} -> Vect A n -> Vect A m -> Vect A (n + m)
+_♯++_ : {A : Set}{n m : ℕ} -> Vect A n -> Vect A m -> Vect A (n + m)
 ♯[] ♯++ ys       = ys
 (x ♯∷ xs) ♯++ ys = x ♯∷ (xs ♯++ ys)
 
